@@ -1,219 +1,295 @@
-<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Чернышевская — расписание, ноябрь 2026</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Расписание Чернышевская · ноябрь</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
 <style>
-/* Главные вкладки: по умолчанию открыта первая */
-.ys-tab { display: none; }
-.ys-tab:target { display: block; }
-body:not(:has(.ys-tab:target)):not(:has(.ys-month:target)) #tab-results { display: block; }
+/* Layout: сводка → дни → недельная сетка двух залов → легенда → выводы и потенциал */
+:root{
+  --bg:#FDF6F0; --surface:#FFFFFF; --ink:#3F4826; --ink-2:#6F7656; --line:#E6DDD3;
+  --accent:#F0803B; --accent-soft:#FDE6D9; --green:#5C6937; --green-soft:#D7D9CD;
+  --hall-m:#5C6937; --hall-g:#AEB49C; --grid:#EFE7DE;
+  --f-display:"Unbounded","Onest",system-ui,sans-serif;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1C2016; --surface:#252A1D; --ink:#EDE6DC; --ink-2:#B9B6A6; --line:#3A4130;
+  --accent:#F49660; --accent-soft:#4A3324; --green:#AEB49C; --green-soft:#33392A;
+  --hall-m:#AEB49C; --hall-g:#6F7856; --grid:#2C3223; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1C2016; --surface:#252A1D; --ink:#EDE6DC; --ink-2:#B9B6A6; --line:#3A4130;
+  --accent:#F49660; --accent-soft:#4A3324; --green:#AEB49C; --green-soft:#33392A;
+  --hall-m:#AEB49C; --hall-g:#6F7856; --grid:#2C3223; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;gap:36px}
+h1,h2{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(22px,3.4vw,32px)}
+h2{font-size:18px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.head{display:flex;flex-direction:column;gap:6px}
+.head p{margin:0;color:var(--ink-2);max-width:65ch}
+.num{font-variant-numeric:tabular-nums}
 
-/* Вложенный переключатель месяцев: выбор месяца держит открытой вкладку итогов */
-.ys-month { display: none; }
-.ys-month:target { display: block; }
-:has(.ys-month:target) #tab-results { display: block; }
-/* по умолчанию — самый свежий месяц (поменять id при добавлении нового) */
-body:not(:has(.ys-month:target)) #m-2026-09 { display: block; }
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi b{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1.1}
+.kpi span{color:var(--ink-2);font-size:13px}
+.kpi.main{background:var(--green);border-color:var(--green)}
+.kpi.main b,.kpi.main span{color:#FDF6F0}
+:root[data-theme="dark"] .kpi.main b,:root[data-theme="dark"] .kpi.main span{color:#1C2016}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kpi.main b,:root:not([data-theme="light"]) .kpi.main span{color:#1C2016}}
+@media (max-width:720px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* Навигация */
-.ys-tab-nav { background:#5C6937; padding:8px 20px; display:flex; gap:6px; flex-wrap:wrap;
-  border-radius:12px; margin-bottom:24px; }
-.ys-tab-nav a { padding:5px 16px; border-radius:14px; border:1.5px solid rgba(255,255,255,.25);
-  color:rgba(255,255,255,.75); text-decoration:none; font-size:.85rem; font-weight:500; }
-.ys-subnav { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 20px; }
-.ys-subnav a { padding:6px 18px; border-radius:20px; border:1.5px solid rgba(92,105,55,.3);
-  color:#5C6937; text-decoration:none; font-size:.85rem; background:white; }
+/* Days */
+.section{display:flex;flex-direction:column;gap:14px}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+@media (max-width:860px){.days{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:460px){.days{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.day.res{border-color:var(--accent);background:linear-gradient(var(--accent-soft),var(--accent-soft)) top/100% 4px no-repeat,var(--surface)}
+.day .dn{font-weight:600;font-size:13px;color:var(--ink-2)}
+.day .cnt{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1}
+.day .cnt small{font-family:var(--f-body);font-size:12px;font-weight:500;color:var(--ink-2);margin-left:4px}
+.bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--grid)}
+.bar i{display:block;height:100%}
+.split{font-size:12px;color:var(--ink-2);display:flex;justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:4px;min-height:22px}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.chip.r{background:var(--accent);color:#fff}
+.chip.s{background:var(--green-soft);color:var(--ink);border:1px dashed var(--green)}
+.keyrow{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink-2)}
+.keyrow span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
 
-/* Подсветка активной вкладки */
-:has(#tab-results:target) .ys-tab-nav a[href="#tab-results"],
-:has(.ys-month:target) .ys-tab-nav a[href="#tab-results"],
-body:not(:has(.ys-tab:target)):not(:has(.ys-month:target)) .ys-tab-nav a[href="#tab-results"],
-:has(#tab-schedule:target) .ys-tab-nav a[href="#tab-schedule"],
-:has(#tab-events:target) .ys-tab-nav a[href="#tab-events"],
-:has(#tab-analytics:target) .ys-tab-nav a[href="#tab-analytics"]
-  { background:#F0803B; color:white; border-color:#F0803B; }
+/* Timetable */
+.tt-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.tt{display:grid;grid-template-columns:46px repeat(14,minmax(64px,1fr));min-width:980px;position:relative}
+.tt .hd{position:sticky;top:0;z-index:3;background:var(--surface);border-bottom:1px solid var(--line);text-align:center;font-size:12px;padding:6px 2px}
+.tt .hd.day-h{grid-column:span 2;font-weight:700;font-size:13px;border-left:1px solid var(--line)}
+.tt .hd.day-h.res{background:var(--accent-soft);color:var(--ink)}
+.tt .hd.hall{font-size:11px;color:var(--ink-2);position:static}
+.tt .hd.hall.m{border-left:1px solid var(--line)}
+.col{position:relative;border-left:1px dashed var(--grid)}
+.col.m{border-left:1px solid var(--line)}
+.axis{position:relative}
+.axis span{position:absolute;right:6px;font-size:10px;color:var(--ink-2);transform:translateY(-50%)}
+.hline{position:absolute;left:0;right:0;border-top:1px solid var(--grid)}
+.cls{position:absolute;left:3px;right:3px;border-radius:5px;padding:3px 5px;font-size:10px;line-height:1.25;overflow:hidden;cursor:pointer;border:0;text-align:left;font-family:var(--f-body)}
+.cls:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.cls b{display:block;font-weight:700}
+.cls .t{opacity:.85}
+.cls.reserve{background:repeating-linear-gradient(135deg,#ECE5DD 0 6px,#F7F1EA 6px 12px)!important;color:#5C4A3A!important;border:2px solid var(--accent)}
+.cls.special{border-color:var(--green);border-style:dashed}
+.detail{min-height:44px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--ink-2)}
+.detail b{color:var(--ink)}
 
-/* Подсветка активного месяца */
-:has(#m-2026-09:target) .ys-subnav a[href="#m-2026-09"],
-:has(#m-2026-08:target) .ys-subnav a[href="#m-2026-08"],
-:has(#m-2026-07:target) .ys-subnav a[href="#m-2026-07"],
-:has(#m-2026-06:target) .ys-subnav a[href="#m-2026-06"],
-:has(#m-2026-05:target) .ys-subnav a[href="#m-2026-05"],
-:has(#m-2026-04:target) .ys-subnav a[href="#m-2026-04"],
-body:not(:has(.ys-month:target)) .ys-subnav a[href="#m-2026-09"]
-  { background:#5C6937; color:white; border-color:#5C6937; }
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px}
+.lg{display:inline-flex;align-items:center;gap:7px;font-size:13px}
+.lg .sw{width:16px;height:16px;flex:none}
+.lg em{font-style:normal;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.lg-note{font-size:12px;color:var(--ink-2);margin:-4px 0 0}
+/* Day header */
+.tt .hd.day-h{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px}
+.tt .hd.day-h .c{font-family:var(--f-display);font-size:18px;line-height:1.1}
+.tt .hd.day-h .c small{font-family:var(--f-body);font-size:11px;font-weight:500;color:var(--ink-2)}
+.tt .hd.day-h .tag{font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--accent);color:#fff;white-space:nowrap}
+.tt .hd.day-h .tag.sp{background:transparent;color:var(--ink-2);border:1px dashed var(--green)}
+/* Fill */
+.fill-tot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.fill-tot{grid-template-columns:minmax(0,1fr)}}
+.ft{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.ft .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ft b{font-family:var(--f-display);font-size:28px;line-height:1}
+.ft .lbl{font-weight:600}
+.ft .sub{font-size:12.5px;color:var(--ink-2)}
+.ft.main{border-color:var(--green);border-width:2px}
+.meter{position:relative;height:10px;border-radius:5px;background:var(--grid);overflow:hidden}
+.meter i{position:absolute;inset:0 auto 0 0;background:var(--green);border-radius:5px}
+.meter i.pot{background:var(--accent);opacity:.55}
+.tbl-scroll{overflow-x:auto}
+table.fill{border-collapse:collapse;width:100%;min-width:560px;font-size:13px;font-variant-numeric:tabular-nums}
+table.fill th,table.fill td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line)}
+table.fill th{font-size:12px;color:var(--ink-2);font-weight:600}
+table.fill td:first-child,table.fill th:first-child{text-align:left;font-weight:600;color:var(--ink)}
+table.fill td.cell{position:relative}
+table.fill td.cell span{position:relative;z-index:1}
+table.fill td.cell::before{content:"";position:absolute;inset:4px 3px;border-radius:5px;background:var(--green);opacity:var(--o)}
+table.fill tr.tot td{font-weight:700;border-bottom:0}
+.sw.res{background:repeating-linear-gradient(135deg,#ECE5DD 0 4px,#F7F1EA 4px 8px);border:2px solid var(--accent)}
+.sw.spec{background:#ECE5DD;border:2px dashed var(--green)}
 
-/* Таблицы — карточки в цветах брендбука */
-.ys-tab h1 { color:#5C6937; font-size:1.4rem; margin:8px 0 12px; }
-.ys-tab h2 { color:#5C6937; font-size:1.05rem; margin:24px 0 8px; }
-.ys-tab table { border-collapse:collapse; background:white; border-radius:10px; overflow:hidden;
-  box-shadow:0 1px 6px rgba(92,105,55,.12); margin-bottom:8px; font-size:.88rem; }
-.ys-tab th { background:#5C6937; color:white; font-weight:500; padding:7px 12px; text-align:left; }
-.ys-tab td { padding:6px 12px; border-top:1px solid rgba(92,105,55,.1); }
-.ys-stub { background:white; border-radius:10px; padding:24px; color:#5C6937;
-  box-shadow:0 1px 6px rgba(92,105,55,.12); }
-/* Расписание — календарная сетка */
-.ys-scroll { overflow-x:auto; }
-.ys-cal { display:flex; min-width:1560px; background:white; border-radius:14px; box-shadow:0 1px 6px rgba(92,105,55,.12);
-  border:1px solid #E4E7DA; overflow:hidden; font-size:11px; line-height:1.25; }
-.ys-axis { width:46px; flex:none; border-right:1px solid #E4E7DA; }
-.ys-axis-head { height:62px; border-bottom:2px solid #D5DAC6; }
-.ys-axis-body, .ys-day-body { position:relative; height:1080px; }
-.ys-hr { position:absolute; right:6px; margin-top:-7px; color:#999; font-size:10.5px; }
-.ys-day { flex:1; border-right:2px solid #C9CFB6; min-width:0; }
-.ys-day:last-child { border-right:none; }
-.ys-day-name { height:34px; line-height:34px; text-align:center; background:#F3F5EC; color:#5C6937; font-weight:700; font-size:15px; }
-.ys-day-name span { font-weight:400; font-size:11px; color:#888; margin-left:4px; }
-.ys-halls { display:flex; height:26px; border-bottom:2px solid #D5DAC6; }
-.ys-halls span { flex:1; text-align:center; line-height:26px; font-size:10.5px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; }
-.ys-hh-mars { background:#FBE3D0; color:#B85A1F; }
-.ys-hh-gal { background:#DCE7F0; color:#3F6A8A; }
-.ys-day-body { display:flex; background:repeating-linear-gradient(to bottom,#ECEEE6 0 1px,transparent 1px 72px); }
-.ys-col { flex:1; position:relative; }
-.ys-col-mars { border-right:1px dashed #E0E3D6; background:rgba(251,227,208,.12); }
-.ys-col-gal { background:rgba(220,231,240,.15); }
-.ys-ev { position:absolute; left:3px; right:3px; border-radius:6px; padding:3px 5px; overflow:hidden; box-sizing:border-box; }
-.ys-ev span { display:block; }
-.ys-ev-time { font-size:10px; opacity:.85; }
-.ys-ev-name { font-weight:700; }
-.ys-ev-tch { opacity:.85; }
-.ys-k-hn { background:#E6EDD4; color:#333; }
-.ys-k-hv { background:#C6D59B; color:#333; }
-.ys-k-hs { background:#809740; color:#fff; }
-.ys-k-hp { background:#6B7E35; color:#fff; }
-.ys-k-am { background:#FEE0CD; color:#333; }
-.ys-k-av { background:#FBB183; color:#333; }
-.ys-k-al { background:#DF5906; color:#fff; }
-.ys-k-vv { background:#A8CDE6; color:#333; }
-.ys-k-vp { background:#5996C0; color:#fff; }
-.ys-k-jw { background:#EFDBC2; color:#333; }
-.ys-k-jo { background:#AA702C; color:#fff; }
-.ys-k-yin { background:#D7E8F4; color:#333; }
-.ys-k-snd { background:#3F7CA6; color:#fff; }
-.ys-k-soft { background:#DDB17E; color:#333; }
-.ys-k-spec { background:#F0803B; color:#fff; }
-.ys-k-rez { background:#E0245E; color:#fff; font-weight:600; box-shadow:0 0 0 2px #fff, 0 0 0 3.5px #E0245E; }
-.ys-chip { display:inline-block; width:14px; height:14px; border-radius:3px; vertical-align:middle; box-sizing:border-box; }
-.ys-legend { font-size:.8rem; color:#555; line-height:1.9; }
-.t420 { top:0px; }
-.t450 { top:36px; }
-.t480 { top:72px; }
-.t510 { top:108px; }
-.t540 { top:144px; }
-.t570 { top:180px; }
-.t600 { top:216px; }
-.t660 { top:288px; }
-.t690 { top:324px; }
-.t720 { top:360px; }
-.t780 { top:432px; }
-.t810 { top:468px; }
-.t840 { top:504px; }
-.t900 { top:576px; }
-.t930 { top:612px; }
-.t960 { top:648px; }
-.t990 { top:684px; }
-.t1020 { top:720px; }
-.t1050 { top:756px; }
-.t1080 { top:792px; }
-.t1110 { top:828px; }
-.t1140 { top:864px; }
-.t1170 { top:900px; }
-.t1200 { top:936px; }
-.t1230 { top:972px; }
-.t1260 { top:1008px; }
-.t1320 { top:1080px; }
-.h60 { height:69px; }
-.h75 { height:87px; }
-.h80 { height:93px; }
-.h90 { height:105px; }
-.h105 { height:123px; }
-.h120 { height:141px; }
-.h150 { height:177px; }
-.ys-load td { white-space:nowrap; }
-.ys-load th { text-align:center; }
-.ys-bar { display:inline-block; width:80px; height:10px; background:#EEF1E6; border-radius:5px;
-  vertical-align:middle; overflow:hidden; }
-.ys-bar span { display:block; height:100%; background:#A2B9C9; }
-.ys-ok strong { color:#5C6937; }
-.ys-warn strong { color:#F0803B; }
-.ys-bar .w47 { width:47%; }
-.ys-bar .w52 { width:52%; }
-.ys-bar .w58 { width:58%; }
-.ys-bar .w59 { width:59%; }
-.ys-bar .w60 { width:60%; }
-.ys-bar .w62 { width:62%; }
-.ys-bar .w64 { width:64%; }
-.ys-bar .w66 { width:66%; }
-.ys-bar .w67 { width:67%; }
-.ys-bar .w68 { width:68%; }
-.ys-bar .w69 { width:69%; }
-.ys-bar .w70 { width:70%; }
-.ys-bar .w72 { width:72%; }
-.ys-bar .w47 { width:47%; }
-.ys-bar .w52 { width:52%; }
-.ys-bar .w58 { width:58%; }
-.ys-bar .w59 { width:59%; }
-.ys-bar .w60 { width:60%; }
-.ys-bar .w62 { width:62%; }
-.ys-bar .w64 { width:64%; }
-.ys-bar .w66 { width:66%; }
-.ys-bar .w67 { width:67%; }
-.ys-bar .w68 { width:68%; }
-.ys-bar .w69 { width:69%; }
-.ys-bar .w70 { width:70%; }
-.ys-bar .w72 { width:72%; }
-.ys-total td { font-weight:600; border-top:2px solid #5C6937; }
+/* Findings */
+.cols2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px}
+@media (max-width:860px){.cols2{grid-template-columns:minmax(0,1fr)}}
+.findings{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;max-width:65ch}
+.pot{display:flex;flex-direction:column;gap:10px}
+.p{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.p .pr{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pr.hi{background:var(--accent);color:#fff}
+.pr.mid{background:var(--accent-soft);color:var(--ink)}
+.pr.lo{background:var(--green-soft);color:var(--ink)}
+.p h3{margin:0 0 2px;font-size:14px}
+.p p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.p .gain{font-family:var(--f-display);font-weight:700;font-size:15px;white-space:nowrap;color:var(--green)}
+.note{font-size:12.5px;color:var(--ink-2);margin:0}
+@media (prefers-reduced-motion:no-preference){.cls{transition:transform .12s}.cls:hover{transform:scale(1.03);z-index:2}}
 </style>
-<style>
-body{margin:0;padding:24px 16px;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#222}
-#tab-schedule{display:block!important;max-width:1400px;margin:0 auto}
-</style>
-</head>
-<body>
-<div class="ys-tab" id="tab-schedule">
-<h1>Расписание на ноябрь 2026</h1>
-<p style="font-size:12px;color:#888">Источник — «Расписание Питер_ноябрь.xlsx» (Яндекс Диск). Ориентир — 12–13 классов в день. Загрузка — доля времени 07:30–22:00 (14,5 ч), занятого классами. Спецкласс в субботу считается классом, остальные резервы — нет.</p>
 
-<h2>Загрузка залов</h2>
-<table class="ys-load">
-<tr><th rowspan="2">День</th><th rowspan="2">Классов</th><th colspan="3">Марс</th><th colspan="3">Галактика</th><th rowspan="2">Студия</th></tr>
-<tr><th>классов</th><th>часов</th><th>загрузка</th><th>классов</th><th>часов</th><th>загрузка</th></tr>
-<tr><td>Понедельник</td><td class="ys-ok"><strong>12</strong></td><td>6</td><td>8,4</td><td><span class="ys-bar"><span class="w58"></span></span> 58%</td><td>6</td><td>10,0</td><td><span class="ys-bar"><span class="w69"></span></span> 69%</td><td><span class="ys-bar"><span class="w64"></span></span> 64%</td></tr>
-<tr><td>Вторник</td><td class="ys-ok"><strong>12</strong></td><td>5</td><td>6,8</td><td><span class="ys-bar"><span class="w47"></span></span> 47%</td><td>7</td><td>10,5</td><td><span class="ys-bar"><span class="w72"></span></span> 72%</td><td><span class="ys-bar"><span class="w59"></span></span> 59%</td></tr>
-<tr><td>Среда</td><td class="ys-ok"><strong>13</strong></td><td>7</td><td>9,7</td><td><span class="ys-bar"><span class="w67"></span></span> 67%</td><td>6</td><td>10,1</td><td><span class="ys-bar"><span class="w70"></span></span> 70%</td><td><span class="ys-bar"><span class="w68"></span></span> 68%</td></tr>
-<tr><td>Четверг</td><td class="ys-ok"><strong>12</strong></td><td>5</td><td>6,8</td><td><span class="ys-bar"><span class="w47"></span></span> 47%</td><td>7</td><td>10,5</td><td><span class="ys-bar"><span class="w72"></span></span> 72%</td><td><span class="ys-bar"><span class="w59"></span></span> 59%</td></tr>
-<tr><td>Пятница</td><td class="ys-ok"><strong>12</strong></td><td>7</td><td>9,7</td><td><span class="ys-bar"><span class="w67"></span></span> 67%</td><td>5</td><td>7,6</td><td><span class="ys-bar"><span class="w52"></span></span> 52%</td><td><span class="ys-bar"><span class="w59"></span></span> 59%</td></tr>
-<tr><td>Суббота</td><td class="ys-ok"><strong>12</strong></td><td>6</td><td>8,5</td><td><span class="ys-bar"><span class="w59"></span></span> 59%</td><td>6</td><td>9,0</td><td><span class="ys-bar"><span class="w62"></span></span> 62%</td><td><span class="ys-bar"><span class="w60"></span></span> 60%</td></tr>
-<tr><td>Воскресенье</td><td class="ys-ok"><strong>12</strong></td><td>6</td><td>8,7</td><td><span class="ys-bar"><span class="w60"></span></span> 60%</td><td>6</td><td>9,3</td><td><span class="ys-bar"><span class="w64"></span></span> 64%</td><td><span class="ys-bar"><span class="w62"></span></span> 62%</td></tr>
-<tr class="ys-total"><td>Неделя</td><td><strong>85</strong></td><td>42</td><td>58,4</td><td><span class="ys-bar"><span class="w58"></span></span> 58%</td><td>43</td><td>67,0</td><td><span class="ys-bar"><span class="w66"></span></span> 66%</td><td><span class="ys-bar"><span class="w62"></span></span> 62%</td></tr>
-</table>
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">Yoga Space · Чернышевская · ноябрь</div>
+    <h1>Расписание недели: классы по дням</h1>
+    <p>Два зала, Марс и Галактика, 7:30–22:00. Резерв под регулярный класс в итог не входит. Резерв под спецкласс в субботу входит.</p>
+  </header>
 
-<h2>Выводы</h2>
-<ul>
-<li><strong>Классов в день — в норме:</strong> 12 каждый день, в среду 13. До 13 можно добавить по одному классу в любой день, кроме среды.</li>
-<li><strong>Меньше всего загружен «Марс» во вт и чт (47%):</strong> свободно 07:30–10:00 и 15:30–17:00 (с 14:00 до 15:30 резерв).</li>
-<li><strong>«Галактика» в пятницу (52%):</strong> свободно 15:30–17:30 и 20:45–22:00, а 11:30–14:00 занято только резервом 12:00–13:30.</li>
-<li><strong>Вечер 17:00–21:30 занят полностью</strong> в обоих залах во все дни.</li>
-</ul>
+  <section class="kpis" id="kpis"></section>
 
-<h2>Сетка: оба зала</h2>
-<p class="ys-legend"><span class="ys-chip ys-k-hn"></span> Хатха — начинающий &nbsp; <span class="ys-chip ys-k-hv"></span> Хатха — все уровни &nbsp; <span class="ys-chip ys-k-hs"></span> Хатха — средний &nbsp; <span class="ys-chip ys-k-hp"></span> Хатха — силовой &nbsp; <span class="ys-chip ys-k-am"></span> Аштанга — майсор &nbsp; <span class="ys-chip ys-k-av"></span> Аштанга — все уровни &nbsp; <span class="ys-chip ys-k-al"></span> Аштанга — ЛЭД (продвинутый) &nbsp; <span class="ys-chip ys-k-vv"></span> Виньяса Флоу — все уровни &nbsp; <span class="ys-chip ys-k-vp"></span> Виньяса Флоу — силовой &nbsp; <span class="ys-chip ys-k-jw"></span> Дживамукти — Духовный воин &nbsp; <span class="ys-chip ys-k-jo"></span> Дживамукти — Открытый класс &nbsp; <span class="ys-chip ys-k-yin"></span> Инь йога &nbsp; <span class="ys-chip ys-k-snd"></span> Звукотерапия / поющие чаши &nbsp; <span class="ys-chip ys-k-soft"></span> Мягкие практики &nbsp; <span class="ys-chip ys-k-spec"></span> Мастер-класс / спецкласс &nbsp;<span class="ys-chip ys-k-rez"></span> <strong>Резерв</strong> (рег. / корп. / инд., не считается классом)</p>
-<div class="ys-scroll"><div class="ys-cal"><div class="ys-axis"><div class="ys-axis-head"></div><div class="ys-axis-body"><span class="ys-hr t420">7:00</span><span class="ys-hr t480">8:00</span><span class="ys-hr t540">9:00</span><span class="ys-hr t600">10:00</span><span class="ys-hr t660">11:00</span><span class="ys-hr t720">12:00</span><span class="ys-hr t780">13:00</span><span class="ys-hr t840">14:00</span><span class="ys-hr t900">15:00</span><span class="ys-hr t960">16:00</span><span class="ys-hr t1020">17:00</span><span class="ys-hr t1080">18:00</span><span class="ys-hr t1140">19:00</span><span class="ys-hr t1200">20:00</span><span class="ys-hr t1260">21:00</span><span class="ys-hr t1320">22:00</span></div></div><div class="ys-day"><div class="ys-day-name">Пн <span>12 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-hp t660 h90"><span class="ys-ev-time">11:00–12:30</span><span class="ys-ev-name">Хатха йога. Силовой класс</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-hv t780 h90"><span class="ys-ev-time">13:00–14:30</span><span class="ys-ev-name">Хатха йога и дыхание</span><span class="ys-ev-tch">Коваленко М.</span></div><div class="ys-ev ys-k-hn t900 h75"><span class="ys-ev-time">15:00–16:15</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Лунегова А.</span></div><div class="ys-ev ys-k-hs t1020 h80"><span class="ys-ev-time">17:00–18:20</span><span class="ys-ev-name">Хатха йога. Средний</span><span class="ys-ev-tch">Белова П.</span></div><div class="ys-ev ys-k-hn t1110 h80"><span class="ys-ev-time">18:30–19:50</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Маврина О.</span></div><div class="ys-ev ys-k-yin t1200 h90"><span class="ys-ev-time">20:00–21:30</span><span class="ys-ev-name">Инь йога</span><span class="ys-ev-tch">Спасенко О.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-am t450 h150"><span class="ys-ev-time">7:30–10:00</span><span class="ys-ev-name">Аштанга - майсор</span><span class="ys-ev-tch">Зинурова Н.</span></div><div class="ys-ev ys-k-snd t600 h90"><span class="ys-ev-time">10:00–11:30</span><span class="ys-ev-name">Хатха йога и поющие чаши</span><span class="ys-ev-tch">Задорожный О.</span></div><div class="ys-ev ys-k-rez t720 h90"><span class="ys-ev-time">12:00–13:30</span><span class="ys-ev-name">Резерв: рег. / корп. / инд.</span></div><div class="ys-ev ys-k-hs t840 h120"><span class="ys-ev-time">14:00–16:00</span><span class="ys-ev-name">Хатха йога. Средний</span><span class="ys-ev-tch">Болтян А.</span></div><div class="ys-ev ys-k-soft t1050 h80"><span class="ys-ev-time">17:30–18:50</span><span class="ys-ev-name">Хатха йога. Класс глубокой растяжки</span><span class="ys-ev-tch">Лопатина В.</span></div><div class="ys-ev ys-k-hv t1140 h80"><span class="ys-ev-time">19:00–20:20</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Болсуновская А.</span></div><div class="ys-ev ys-k-hp t1230 h80"><span class="ys-ev-time">20:30–21:50</span><span class="ys-ev-name">Хатха йога. Силовой класс</span><span class="ys-ev-tch">Панькина О.</span></div></div></div></div><div class="ys-day"><div class="ys-day-name">Вт <span>12 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-hv t600 h75"><span class="ys-ev-time">10:00–11:15</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Маврина О.</span></div><div class="ys-ev ys-k-hp t720 h80"><span class="ys-ev-time">12:00–13:20</span><span class="ys-ev-name">Хатха йога. Силовой класс</span><span class="ys-ev-tch">Панькина О.</span></div><div class="ys-ev ys-k-rez t840 h90"><span class="ys-ev-time">14:00–15:30</span><span class="ys-ev-name">Резерв: рег. / корп. / инд.</span></div><div class="ys-ev ys-k-vv t1020 h80"><span class="ys-ev-time">17:00–18:20</span><span class="ys-ev-name">Виньяса Флоу</span><span class="ys-ev-tch">Абаносимов А.</span></div><div class="ys-ev ys-k-hv t1110 h80"><span class="ys-ev-time">18:30–19:50</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Кахиани Л.</span></div><div class="ys-ev ys-k-vp t1200 h90"><span class="ys-ev-time">20:00–21:30</span><span class="ys-ev-name">Виньяса Флоу. Силовой класс</span><span class="ys-ev-tch">Вейос Я.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-am t450 h150"><span class="ys-ev-time">7:30–10:00</span><span class="ys-ev-name">Аштанга - майсор</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-hn t660 h90"><span class="ys-ev-time">11:00–12:30</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Болсуновская А.</span></div><div class="ys-ev ys-k-soft t780 h90"><span class="ys-ev-time">13:00–14:30</span><span class="ys-ev-name">Хатха йога. Здоровая спина</span><span class="ys-ev-tch">Самарская В.</span></div><div class="ys-ev ys-k-jw t900 h60"><span class="ys-ev-time">15:00–16:00</span><span class="ys-ev-name">Дживамукти Йога. Духовный воин</span><span class="ys-ev-tch">Лунегова А.</span></div><div class="ys-ev ys-k-hv t1050 h80"><span class="ys-ev-time">17:30–18:50</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Грунтовская А.</span></div><div class="ys-ev ys-k-vv t1140 h80"><span class="ys-ev-time">19:00–20:20</span><span class="ys-ev-name">Виньяса Флоу</span><span class="ys-ev-tch">Казакова А.</span></div><div class="ys-ev ys-k-snd t1230 h80"><span class="ys-ev-time">20:30–21:50</span><span class="ys-ev-name">Хатха и Йога Нидра с поющей чашей</span><span class="ys-ev-tch">Туманов И.</span></div></div></div></div><div class="ys-day"><div class="ys-day-name">Ср <span>13 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-hv t510 h90"><span class="ys-ev-time">8:30–10:00</span><span class="ys-ev-name">Хатха йога. Бодрое утро</span><span class="ys-ev-tch">Самарская В.</span></div><div class="ys-ev ys-k-hv t660 h90"><span class="ys-ev-time">11:00–12:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Дубяго Л.</span></div><div class="ys-ev ys-k-hs t780 h90"><span class="ys-ev-time">13:00–14:30</span><span class="ys-ev-name">Хатха йога. Средний</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-jw t900 h60"><span class="ys-ev-time">15:00–16:00</span><span class="ys-ev-name">Дживамукти Йога. Духовный воин</span><span class="ys-ev-tch">Казакова А.</span></div><div class="ys-ev ys-k-av t1020 h80"><span class="ys-ev-time">17:00–18:20</span><span class="ys-ev-name">Аштанга йога</span><span class="ys-ev-tch">Зинурова Н.</span></div><div class="ys-ev ys-k-hn t1110 h80"><span class="ys-ev-time">18:30–19:50</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Маврина О.</span></div><div class="ys-ev ys-k-soft t1200 h90"><span class="ys-ev-time">20:00–21:30</span><span class="ys-ev-name">Хатха йога. Здоровая спина</span><span class="ys-ev-tch">Самарская В.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-am t450 h150"><span class="ys-ev-time">7:30–10:00</span><span class="ys-ev-name">Аштанга - майсор</span><span class="ys-ev-tch">Зинурова Н.</span></div><div class="ys-ev ys-k-hv t600 h90"><span class="ys-ev-time">10:00–11:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Грунтовская А.</span></div><div class="ys-ev ys-k-soft t720 h75"><span class="ys-ev-time">12:00–13:15</span><span class="ys-ev-name">Йога для женского здоровья</span><span class="ys-ev-tch">Монахова Д.</span></div><div class="ys-ev ys-k-snd t840 h90"><span class="ys-ev-time">14:00–15:30</span><span class="ys-ev-name">Хатха йога и поющие чаши</span><span class="ys-ev-tch">Задорожный О.</span></div><div class="ys-ev ys-k-hv t1050 h80"><span class="ys-ev-time">17:30–18:50</span><span class="ys-ev-name">Хатха йога. Подготовка к стойкам на руках</span><span class="ys-ev-tch">Спасенко О.</span></div><div class="ys-ev ys-k-jo t1170 h120"><span class="ys-ev-time">19:30–21:30</span><span class="ys-ev-name">Дживамукти Йога. Открытый класс. Средний</span><span class="ys-ev-tch">Шанти Н.</span></div></div></div></div><div class="ys-day"><div class="ys-day-name">Чт <span>12 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-hv t600 h75"><span class="ys-ev-time">10:00–11:15</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Маврина О.</span></div><div class="ys-ev ys-k-hp t720 h80"><span class="ys-ev-time">12:00–13:20</span><span class="ys-ev-name">Хатха йога. Силовой класс</span><span class="ys-ev-tch">Панькина О.</span></div><div class="ys-ev ys-k-rez t840 h90"><span class="ys-ev-time">14:00–15:30</span><span class="ys-ev-name">Резерв: рег. / корп. / инд.</span></div><div class="ys-ev ys-k-vv t1020 h80"><span class="ys-ev-time">17:00–18:20</span><span class="ys-ev-name">Виньяса Флоу</span><span class="ys-ev-tch">Абаносимов А.</span></div><div class="ys-ev ys-k-hv t1110 h80"><span class="ys-ev-time">18:30–19:50</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Кахиани Л.</span></div><div class="ys-ev ys-k-vp t1200 h90"><span class="ys-ev-time">20:00–21:30</span><span class="ys-ev-name">Виньяса Флоу. Силовой класс</span><span class="ys-ev-tch">Вейос Я.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-am t450 h150"><span class="ys-ev-time">7:30–10:00</span><span class="ys-ev-name">Аштанга - майсор</span><span class="ys-ev-tch">Болсуновская А.</span></div><div class="ys-ev ys-k-hn t660 h90"><span class="ys-ev-time">11:00–12:30</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Болсуновская А.</span></div><div class="ys-ev ys-k-soft t780 h90"><span class="ys-ev-time">13:00–14:30</span><span class="ys-ev-name">Хатха йога. Здоровая спина</span><span class="ys-ev-tch">Самарская В.</span></div><div class="ys-ev ys-k-jw t900 h60"><span class="ys-ev-time">15:00–16:00</span><span class="ys-ev-name">Дживамукти Йога. Духовный воин</span><span class="ys-ev-tch">Лунегова А.</span></div><div class="ys-ev ys-k-soft t1050 h80"><span class="ys-ev-time">17:30–18:50</span><span class="ys-ev-name">Хатха йога. Класс глубокой растяжки</span><span class="ys-ev-tch">Лопатина В.</span></div><div class="ys-ev ys-k-vv t1140 h80"><span class="ys-ev-time">19:00–20:20</span><span class="ys-ev-name">Виньяса Флоу</span><span class="ys-ev-tch">Казакова А.</span></div><div class="ys-ev ys-k-hp t1230 h80"><span class="ys-ev-time">20:30–21:50</span><span class="ys-ev-name">Хатха йога. Силовой класс</span><span class="ys-ev-tch">Панькина О.</span></div></div></div></div><div class="ys-day"><div class="ys-day-name">Пт <span>12 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-hv t510 h90"><span class="ys-ev-time">8:30–10:00</span><span class="ys-ev-name">Хатха йога. Бодрое утро</span><span class="ys-ev-tch">Самарская В.</span></div><div class="ys-ev ys-k-hv t660 h90"><span class="ys-ev-time">11:00–12:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Дубяго Л.</span></div><div class="ys-ev ys-k-soft t780 h75"><span class="ys-ev-time">13:00–14:15</span><span class="ys-ev-name">Йога для женского здоровья</span><span class="ys-ev-tch">Спасенко О.</span></div><div class="ys-ev ys-k-hn t900 h75"><span class="ys-ev-time">15:00–16:15</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Кахиани Л.</span></div><div class="ys-ev ys-k-hv t1020 h80"><span class="ys-ev-time">17:00–18:20</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Белова П.</span></div><div class="ys-ev ys-k-hv t1110 h80"><span class="ys-ev-time">18:30–19:50</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-soft t1200 h90"><span class="ys-ev-time">20:00–21:30</span><span class="ys-ev-name">Хатха йога. Здоровая спина</span><span class="ys-ev-tch">Самарская В.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-al t480 h90"><span class="ys-ev-time">8:00–9:30</span><span class="ys-ev-name">Аштанга - утренний ЛЭД 1 серия. Продвинутый</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-hv t600 h90"><span class="ys-ev-time">10:00–11:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Вейос Я.</span></div><div class="ys-ev ys-k-rez t720 h90"><span class="ys-ev-time">12:00–13:30</span><span class="ys-ev-name">Резерв: рег. / корп. / инд.</span></div><div class="ys-ev ys-k-snd t840 h90"><span class="ys-ev-time">14:00–15:30</span><span class="ys-ev-name">Хатха йога и поющие чаши</span><span class="ys-ev-tch">Задорожный О.</span></div><div class="ys-ev ys-k-hs t1050 h80"><span class="ys-ev-time">17:30–18:50</span><span class="ys-ev-name">Хатха йога. Средний</span><span class="ys-ev-tch">Болтян А.</span></div><div class="ys-ev ys-k-snd t1140 h105"><span class="ys-ev-time">19:00–20:45</span><span class="ys-ev-name">Виньяса Флоу и Звукотерапия</span><span class="ys-ev-tch">Туманов И.</span></div></div></div></div><div class="ys-day"><div class="ys-day-name">Сб <span>12 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-hv t570 h90"><span class="ys-ev-time">9:30–11:00</span><span class="ys-ev-name">Хатха йога. Бодрое утро</span><span class="ys-ev-tch">Самарская В.</span></div><div class="ys-ev ys-k-hv t690 h90"><span class="ys-ev-time">11:30–13:00</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Дубяго Л.</span></div><div class="ys-ev ys-k-vv t810 h90"><span class="ys-ev-time">13:30–15:00</span><span class="ys-ev-name">Виньяса Флоу</span><span class="ys-ev-tch">Абаносимов А.</span></div><div class="ys-ev ys-k-soft t930 h90"><span class="ys-ev-time">15:30–17:00</span><span class="ys-ev-name">Йогатерапия</span><span class="ys-ev-tch">Спасенко О.</span></div><div class="ys-ev ys-k-snd t1050 h60"><span class="ys-ev-time">17:30–18:30</span><span class="ys-ev-name">Звукотерапия. Хэндпан и тибетские чаши</span><span class="ys-ev-tch">Задорожный О.</span></div><div class="ys-ev ys-k-hv t1140 h90"><span class="ys-ev-time">19:00–20:30</span><span class="ys-ev-name">Хатха йога. Интервальный подход</span><span class="ys-ev-tch">Коваленко М.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-hv t600 h90"><span class="ys-ev-time">10:00–11:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Грунтовская А.</span></div><div class="ys-ev ys-k-vp t720 h90"><span class="ys-ev-time">12:00–13:30</span><span class="ys-ev-name">Виньяса Флоу. Силовой класс</span><span class="ys-ev-tch">Вейос Я.</span></div><div class="ys-ev ys-k-vv t840 h90"><span class="ys-ev-time">14:00–15:30</span><span class="ys-ev-name">Виньяса Флоу</span><span class="ys-ev-tch">Казакова А.</span></div><div class="ys-ev ys-k-spec t960 h105"><span class="ys-ev-time">16:00–17:45</span><span class="ys-ev-name">Спецкласс</span></div><div class="ys-ev ys-k-soft t1080 h75"><span class="ys-ev-time">18:00–19:15</span><span class="ys-ev-name">Йога для женского здоровья</span><span class="ys-ev-tch">Спасенко О.</span></div><div class="ys-ev ys-k-vp t1170 h90"><span class="ys-ev-time">19:30–21:00</span><span class="ys-ev-name">Виньяса Флоу. Силовой класс</span><span class="ys-ev-tch">Лунегова А.</span></div></div></div></div><div class="ys-day"><div class="ys-day-name">Вс <span>12 кл.</span></div><div class="ys-halls"><span class="ys-hh-mars">Марс</span><span class="ys-hh-gal">Галактика</span></div><div class="ys-day-body"><div class="ys-col ys-col-mars"><div class="ys-ev ys-k-jo t660 h105"><span class="ys-ev-time">11:00–12:45</span><span class="ys-ev-name">Дживамукти Йога. Открытый класс. Средний</span><span class="ys-ev-tch">Шанти Н.</span></div><div class="ys-ev ys-k-hv t780 h90"><span class="ys-ev-time">13:00–14:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Кахиани Л.</span></div><div class="ys-ev ys-k-soft t900 h80"><span class="ys-ev-time">15:00–16:20</span><span class="ys-ev-name">Хатха йога. Класс глубокой растяжки</span><span class="ys-ev-tch">Лопатина В.</span></div><div class="ys-ev ys-k-av t990 h80"><span class="ys-ev-time">16:30–17:50</span><span class="ys-ev-name">Аштанга йога</span><span class="ys-ev-tch">Зинурова Н.</span></div><div class="ys-ev ys-k-jo t1080 h105"><span class="ys-ev-time">18:00–19:45</span><span class="ys-ev-name">Дживамукти Йога. Открытый класс. Средний</span><span class="ys-ev-tch">Монахова Д.</span></div><div class="ys-ev ys-k-snd t1200 h60"><span class="ys-ev-time">20:00–21:00</span><span class="ys-ev-name">Йога Нидра с поющей чашей</span><span class="ys-ev-tch">Маврина О.</span></div></div><div class="ys-col ys-col-gal"><div class="ys-ev ys-k-am t570 h120"><span class="ys-ev-time">9:30–11:30</span><span class="ys-ev-name">Аштанга - майсор</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-vp t720 h90"><span class="ys-ev-time">12:00–13:30</span><span class="ys-ev-name">Виньяса Флоу. Силовой класс</span><span class="ys-ev-tch">Вейос Я.</span></div><div class="ys-ev ys-k-hn t840 h75"><span class="ys-ev-time">14:00–15:15</span><span class="ys-ev-name">Хатха йога. Начинающий</span><span class="ys-ev-tch">Маврина О.</span></div><div class="ys-ev ys-k-snd t930 h105"><span class="ys-ev-time">15:30–17:15</span><span class="ys-ev-name">Виньяса Флоу и Звукотерапия</span><span class="ys-ev-tch">Туманов И.</span></div><div class="ys-ev ys-k-hs t1050 h80"><span class="ys-ev-time">17:30–18:50</span><span class="ys-ev-name">Хатха йога. Средний</span><span class="ys-ev-tch">Соболевская А.</span></div><div class="ys-ev ys-k-hv t1140 h90"><span class="ys-ev-time">19:00–20:30</span><span class="ys-ev-name">Хатха йога</span><span class="ys-ev-tch">Болсуновская А.</span></div></div></div></div></div></div>
+  <section class="section">
+    <h2>Сетка недели</h2>
+    <div class="legend" id="legend"></div>
+    <div class="tt-scroll"><div class="tt" id="tt"></div></div>
+    <div class="detail" id="detail">Нажмите на класс, чтобы увидеть полное название и преподавателя.</div>
+  </section>
 
-<h2>Свободные окна (от 1 часа)</h2>
-<table>
-<tr><th>День</th><th>Марс</th><th>Галактика</th></tr>
-<tr><td>Понедельник</td><td>07:30–11:00</td><td>11:30–14:00 <em>(резерв 12:00–13:30)</em>; 16:00–17:30</td></tr>
-<tr><td>Вторник</td><td>07:30–10:00; 13:20–17:00 <em>(резерв 14:00–15:30)</em></td><td>10:00–11:00; 16:00–17:30</td></tr>
-<tr><td>Среда</td><td>07:30–08:30; 10:00–11:00; 16:00–17:00</td><td>15:30–17:30</td></tr>
-<tr><td>Четверг</td><td>07:30–10:00; 13:20–17:00 <em>(резерв 14:00–15:30)</em></td><td>10:00–11:00; 16:00–17:30</td></tr>
-<tr><td>Пятница</td><td>07:30–08:30; 10:00–11:00</td><td>11:30–14:00 <em>(резерв 12:00–13:30)</em>; 15:30–17:30; 20:45–22:00</td></tr>
-<tr><td>Суббота</td><td>07:30–09:30; 20:30–22:00</td><td>07:30–10:00; 21:00–22:00</td></tr>
-<tr><td>Воскресенье</td><td>07:30–11:00; 21:00–22:00</td><td>07:30–09:30; 20:30–22:00</td></tr>
-</table>
-<p style="font-size:12px;color:#888">Резервы под рег. / корп. / инд. классы входят в свободное время и указаны в скобках.</p>
+  <section class="section">
+    <h2>Заполненность залов</h2>
+    <p class="note">Доля часов с классами от рабочего окна 7:30–22:00 (14,5 ч в день на зал). Спецкласс субботы входит в расчёт, резервы под регулярный класс не входят.</p>
+    <div class="fill-tot" id="filltot"></div>
+    <div class="tbl-scroll"><table class="fill" id="filltbl"></table></div>
+  </section>
+
+  <section class="cols2">
+    <div class="section">
+      <h2>Выводы</h2>
+      <ul class="findings" id="findings"></ul>
+    </div>
+    <div class="section">
+      <h2>Где есть потенциал</h2>
+      <div class="pot" id="pot"></div>
+      <p class="note">Перед добавлением класса стоит сверить заполняемость соседних слотов по 1С.</p>
+    </div>
+  </section>
 </div>
-</body>
-</html>
+
+<script>
+const RAW = [["По","M","11:00","12:30","Хатха йога. Силовой класс","Соболевская А.","596D28"],["По","M","13:00","14:30","Хатха йога и дыхание. Все уровни","Коваленко М.","BACE89"],["По","M","15:00","16:15","Хатха йога. Начинающий","Лунегова А.","E0EACA"],["По","M","17:00","18:20","Хатха йога. Средний","Белова П.","6E8731"],["По","M","18:30","19:50","Хатха йога. Начинающий","Маврина О.","E0EACA"],["По","M","20:00","21:30","Инь йога. Все уровни","Спасенко О.","CEE2F1"],["По","G","07:30","10:00","Аштанга - майсор. Все уровни","Зинурова Н.","FDD9C2"],["По","G","10:00","11:30","Хатха йога и поющие чаши. Все уровни","Задорожный О.","326895"],["По","G","12:00","13:30","РЕЗЕРВ под рег. / корп / инд класс","Замена П.","ECE5DD"],["По","G","14:00","16:00","Хатха йога. Средний","Болтян А.","6E8731"],["По","G","17:30","18:50","Хатха йога. Класс глубокой растяжки. Все уровни","Лопатина В.","BACE89"],["По","G","19:00","20:20","Хатха йога. Все уровни","Болсуновская А.","BACE89"],["По","G","20:30","21:50","Хатха йога. Силовой класс","Панькина О.","596D28"],["Вт","M","10:00","11:15","Хатха йога. Все уровни","Маврина О.","BACE89"],["Вт","M","12:00","13:20","Хатха йога. Силовой класс","Панькина О.","596D28"],["Вт","M","14:00","15:30","РЕЗЕРВ под рег. / корп / инд класс","Замена П.","ECE5DD"],["Вт","M","17:00","18:20","Виньяса Флоу. Все уровни","Абаносимов А.","99C2E0"],["Вт","M","18:30","19:50","Хатха йога. Все уровни","Кахиани Л.","BACE89"],["Вт","M","20:00","21:30","Виньяса Флоу. Силовой класс","Вейос Я.","4983B2"],["Вт","G","07:30","10:00","Аштанга - майсор. Все уровни","Соболевская А.","FDD9C2"],["Вт","G","11:00","12:30","Хатха йога. Начинающий","Болсуновская А.","E0EACA"],["Вт","G","13:00","14:30","Хатха йога. Здоровая спина. Все уровни","Самарская В.","BACE89"],["Вт","G","15:00","16:00","Дживамукти Йога. Духовный воин. Все уровни","Лунегова А.","EAD3B5"],["Вт","G","17:30","18:50","Хатха йога. Все уровни","Грунтовская А.","BACE89"],["Вт","G","19:00","20:20","Виньяса Флоу. Все уровни","Казакова А.","99C2E0"],["Вт","G","20:30","21:50","Хатха и Йога Нидра с поющей чашей. Все уровни","Туманов И.","D4A26B"],["Ср","M","08:30","10:00","Хатха йога. Бодрое утро. Все уровни","Самарская В.","BACE89"],["Ср","M","11:00","12:30","Хатха йога. Все уровни","Дубяго Л.","BACE89"],["Ср","M","13:00","14:30","Хатха йога. Средний","Соболевская А.","6E8731"],["Ср","M","15:00","16:00","Дживамукти Йога. Духовный воин. Все уровни","Казакова А.","EAD3B5"],["Ср","M","17:00","18:20","Аштанга йога. Все уровни","Зинурова Н.","F8A170"],["Ср","M","18:30","19:50","Хатха йога. Начинающий","Маврина О.","E0EACA"],["Ср","M","20:00","21:30","Хатха йога. Здоровая спина. Все уровни","Самарская В.","BACE89"],["Ср","G","07:30","10:00","Аштанга - майсор. Все уровни","Зинурова Н.","FDD9C2"],["Ср","G","10:00","11:30","Хатха йога. Все уровни","Грунтовская А.","BACE89"],["Ср","G","12:00","13:15","Йога для женского здоровья. Все уровни","Монахова Д.","D4A26B"],["Ср","G","14:00","15:30","Хатха йога и поющие чаши. Все уровни","Задорожный О.","326895"],["Ср","G","17:30","18:50","Хатха йога. Подготовка к стойкам на руках. Все уровни","Спасенко О.","BACE89"],["Ср","G","19:30","21:30","Дживамукти Йога. Открытый класс. Средний","Шанти Н.","985D22"],["Че","M","10:00","11:15","Хатха йога. Все уровни","Маврина О.","BACE89"],["Че","M","12:00","13:20","Хатха йога. Силовой класс","Панькина О.","596D28"],["Че","M","14:00","15:30","РЕЗЕРВ под рег. / корп / инд класс","Замена П.","ECE5DD"],["Че","M","17:00","18:20","Виньяса Флоу. Все уровни","Абаносимов А.","99C2E0"],["Че","M","18:30","19:50","Хатха йога. Все уровни","Кахиани Л.","BACE89"],["Че","M","20:00","21:30","Виньяса Флоу. Силовой класс","Вейос Я.","4983B2"],["Че","G","07:30","10:00","Аштанга - майсор. Все уровни","Болсуновская А.","FDD9C2"],["Че","G","11:00","12:30","Хатха йога. Начинающий","Болсуновская А.","E0EACA"],["Че","G","13:00","14:30","Хатха йога. Здоровая спина. Все уровни","Самарская В.","BACE89"],["Че","G","15:00","16:00","Дживамукти Йога. Духовный воин. Все уровни","Лунегова А.","EAD3B5"],["Че","G","17:30","18:50","Хатха йога. Класс глубокой растяжки. Все уровни","Лопатина В.","BACE89"],["Че","G","19:00","20:20","Виньяса Флоу. Все уровни","Казакова А.","99C2E0"],["Че","G","20:30","21:50","Хатха йога. Силовой класс","Панькина О.","596D28"],["Пя","M","08:30","10:00","Хатха йога. Бодрое утро. Все уровни","Самарская В.","BACE89"],["Пя","M","11:00","12:30","Хатха йога. Все уровни","Дубяго Л.","BACE89"],["Пя","M","13:00","14:15","Йога для женского здоровья. Все уровни","Спасенко О.","D4A26B"],["Пя","M","15:00","16:15","Хатха йога. Начинающий","Кахиани Л.","E0EACA"],["Пя","M","17:00","18:20","Хатха йога. Все уровни","Белова П.","BACE89"],["Пя","M","18:30","19:50","Хатха йога. Все уровни","Соболевская А.","BACE89"],["Пя","M","20:00","21:30","Хатха йога. Здоровая спина. Все уровни","Самарская В.","BACE89"],["Пя","G","08:00","09:30","Аштанга - утренний ЛЭД 1 серия. Продвинутый","Соболевская А.","D5430B"],["Пя","G","10:00","11:30","Хатха йога. Все уровни","Вейос Я.","BACE89"],["Пя","G","12:00","13:30","РЕЗЕРВ под рег. / корп / инд класс","Замена П.","ECE5DD"],["Пя","G","14:00","15:30","Хатха йога и поющие чаши. Все уровни","Задорожный О.","326895"],["Пя","G","17:30","18:50","Хатха йога. Средний","Болтян А.","6E8731"],["Пя","G","19:00","20:45","Виньяса Флоу и Звукотерапия. Все уровни","Туманов И.","326895"],["Су","M","09:30","11:00","Хатха йога. Бодрое утро. Все уровни","Самарская В.","BACE89"],["Су","M","11:30","13:00","Хатха йога. Все уровни","Дубяго Л.","BACE89"],["Су","M","13:30","15:00","Виньяса Флоу. Все уровни","Абаносимов А.","99C2E0"],["Су","M","15:30","17:00","Йогатерапия. Все уровни","Спасенко О.","D4A26B"],["Су","M","17:30","18:30","Звукотерапия. Хэндпан и тибетские чаши","Задорожный О.","326895"],["Су","M","19:00","20:30","Хатха йога. Интервальный подход. Все уровни","Коваленко М.","BACE89"],["Су","G","10:00","11:30","Хатха йога. Все уровни","Грунтовская А.","BACE89"],["Су","G","12:00","13:30","Виньяса Флоу. Силовой класс","Вейос Я.","4983B2"],["Су","G","14:00","15:30","Виньяса Флоу. Все уровни","Казакова А.","99C2E0"],["Су","G","16:00","17:45","РЕЗЕРВ ПОД СПЕЦ. КЛАСС","","ECE5DD"],["Су","G","18:00","19:15","Йога для женского здоровья. Все уровни","Спасенко О.","D4A26B"],["Су","G","19:30","21:00","Виньяса Флоу. Силовой класс","Лунегова А.","4983B2"],["Во","M","11:00","12:45","Дживамукти Йога. Открытый класс. Средний","Шанти Н.","985D22"],["Во","M","13:00","14:30","Хатха йога. Все уровни","Кахиани Л.","BACE89"],["Во","M","15:00","16:20","Хатха йога. Класс глубокой растяжки. Все уровни","Лопатина В.","BACE89"],["Во","M","16:30","17:50","Аштанга йога. Все уровни","Зинурова Н.","F8A170"],["Во","M","18:00","19:45","Дживамукти Йога. Открытый класс. Средний","Монахова Д.","985D22"],["Во","M","20:00","21:00","Йога Нидра с поющей чашей. Все уровни","Маврина О.","D4A26B"],["Во","G","09:30","11:30","Аштанга - майсор. Все уровни","Соболевская А.","FDD9C2"],["Во","G","12:00","13:30","Виньяса Флоу. Силовой класс","Вейос Я.","4983B2"],["Во","G","14:00","15:15","Хатха йога. Начинающий","Маврина О.","E0EACA"],["Во","G","15:30","17:15","Виньяса Флоу и Звукотерапия. Все уровни","Туманов И.","326895"],["Во","G","17:30","18:50","Хатха йога. Средний","Соболевская А.","6E8731"],["Во","G","19:00","20:30","Хатха йога. Все уровни","Болсуновская А.","BACE89"]];
+const DAYS=[["По","Понедельник","Пн"],["Вт","Вторник","Вт"],["Ср","Среда","Ср"],["Че","Четверг","Чт"],["Пя","Пятница","Пт"],["Су","Суббота","Сб"],["Во","Воскресенье","Вс"]];
+const HALLS={M:"Марс",G:"Галактика"};
+const toMin=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
+const data=RAW.map(([d,h,s,e,name,teacher,color])=>{
+  const res=/РЕЗЕРВ/i.test(name), spec=/СПЕЦ/i.test(name);
+  return {d,h,s,e,name:res?(spec?"Резерв под спецкласс":"Резерв под рег. / корп / инд класс"):name,teacher:res?"":teacher,color:"#"+color,
+    reserve:res&&!spec, special:spec, counted:!(res&&!spec)};
+});
+/* Направления: один цвет на направление (палитра только для этого дашборда) */
+const DIR=[
+  {k:"hatha", n:"Хатха",                 c:"#6E7F45", fg:"#FFFFFF"},
+  {k:"vin",   n:"Виньяса",               c:"#4F7FA6", fg:"#FFFFFF"},
+  {k:"ash",   n:"Аштанга",               c:"#E07A35", fg:"#FFFFFF"},
+  {k:"jiv",   n:"Дживамукти",            c:"#8E5A2B", fg:"#FFFFFF"},
+  {k:"yin",   n:"Инь-йога",              c:"#B7A6D8", fg:"#3F2F5E"},
+  {k:"sound", n:"Звук, чаши, нидра",     c:"#2F4A66", fg:"#FFFFFF"},
+  {k:"ther",  n:"Терапия, женское здоровье", c:"#E8BE86", fg:"#5A3D17"},
+];
+const DIRMAP=Object.fromEntries(DIR.map(x=>[x.k,x]));
+function dirOf(name){
+  const s=name.toLowerCase();
+  if(/чаш|звук|нидра/.test(s)) return "sound";
+  if(/женск|терапи/.test(s)) return "ther";
+  if(/аштанга/.test(s)) return "ash";
+  if(/дживамукти/.test(s)) return "jiv";
+  if(/виньяса/.test(s)) return "vin";
+  if(/инь/.test(s)) return "yin";
+  return "hatha";
+}
+data.forEach(x=>{ if(!x.reserve&&!x.special){ x.dir=dirOf(x.name); x.color=DIRMAP[x.dir].c; x.fg=DIRMAP[x.dir].fg; } });
+
+/* KPIs */
+const total=data.filter(x=>x.counted).length;
+const resReg=data.filter(x=>x.reserve).length;
+const hallHours=h=>data.filter(x=>x.h===h&&x.counted&&!x.special).reduce((a,x)=>a+toMin(x.e)-toMin(x.s),0)/60;
+document.getElementById("kpis").innerHTML=`
+  <div class="kpi main"><b class="num">${total}</b><span>классов в неделю (со спецклассом сб)</span></div>
+  <div class="kpi"><b class="num">${resReg}</b><span>резерва под рег. класс, вне счёта</span></div>
+  <div class="kpi"><b class="num">${total+resReg}</b><span>классов, если заполнить резервы</span></div>
+  <div class="kpi"><b class="num">${(total/7).toFixed(1).replace(".",",")}</b><span>класса в день в среднем</span></div>`;
+
+
+/* Timetable */
+const START=toMin("07:30"), END=toMin("22:00"), PX=0.95, H=(END-START)*PX;
+const tt=document.getElementById("tt");
+let html=`<div class="hd" style="grid-row:1/3"></div>`;
+DAYS.forEach(([k,full])=>{
+  const xs=data.filter(x=>x.d===k), n=xs.filter(x=>x.counted).length;
+  const r=xs.filter(x=>x.reserve), sp=xs.some(x=>x.special);
+  const tag=r.length?`<span class="tag">резерв ${r.map(x=>x.s).join(", ")}</span>`:sp?`<span class="tag sp">вкл. спецкласс</span>`:"";
+  html+=`<div class="hd day-h ${r.length?"res":""}"><span>${full}</span><span class="c num">${n} <small>классов</small></span>${tag}</div>`;
+});
+DAYS.forEach(()=>{html+=`<div class="hd hall m">Марс</div><div class="hd hall">Галакт.</div>`});
+let axis=`<div class="axis" style="height:${H+8}px">`;
+for(let t=START;t<=END;t+=30){if(t%60===0)axis+=`<span style="top:${(t-START)*PX+4}px">${t/60}:00</span>`}
+axis+=`</div>`;html+=axis;
+const lines=()=>{let s="";for(let t=START+30;t<END;t+=30){if(t%60===0)s+=`<div class="hline" style="top:${(t-START)*PX+4}px"></div>`}return s};
+DAYS.forEach(([k])=>["M","G"].forEach(h=>{
+  html+=`<div class="col ${h==="M"?"m":""}" style="height:${H+8}px">${lines()}`;
+  data.filter(x=>x.d===k&&x.h===h).forEach((x,i)=>{
+    const top=(toMin(x.s)-START)*PX+4, ht=(toMin(x.e)-toMin(x.s))*PX-2;
+    const fg=x.fg||"#5C4A3A";
+    const short=x.name.replace(/^Хатха йога\.\s*/,"Хатха · ").replace(/\.\s*Все уровни$/,"").replace(/Все уровни/,"");
+    const idx=data.indexOf(x);
+    html+=`<button class="cls ${x.reserve?"reserve":""} ${x.special?"reserve special":""}" data-i="${idx}" style="top:${top}px;height:${ht}px;background:${x.color};color:${fg}" title="${x.s}–${x.e} ${x.name} ${x.teacher}">
+      <span class="t num">${x.s}–${x.e}</span><b>${short}</b>${x.teacher?`<span>${x.teacher}</span>`:""}</button>`;
+  });
+  html+=`</div>`;
+}));
+tt.innerHTML=html;
+tt.addEventListener("click",e=>{const b=e.target.closest(".cls");if(!b)return;const x=data[b.dataset.i];
+  const day=DAYS.find(d=>d[0]===x.d)[1];
+  document.getElementById("detail").innerHTML=`<b>${day}, ${x.s}–${x.e} · ${HALLS[x.h]}</b> · ${x.name}${x.teacher?` · ${x.teacher}`:""}${x.reserve?" · <b>не входит в итог дня</b>":""}${x.special?" · <b>входит в итог дня</b>":""}`;});
+
+/* Legend */
+document.getElementById("legend").innerHTML=DIR.map(x=>`<span class="lg"><i class="sw" style="background:${x.c}"></i>${x.n} <em>${data.filter(y=>y.dir===x.k).length}</em></span>`).join("")
+  +`<span class="lg"><i class="sw res"></i>Резерв под рег. класс <em>${resReg}, не в счёте</em></span>`
+  +`<span class="lg"><i class="sw spec"></i>Спецкласс сб <em>1, в счёте</em></span>`;
+document.getElementById("legend").insertAdjacentHTML("afterend",`<p class="lg-note">Классы с поющими чашами, звукотерапией и нидрой собраны в одну группу «Звук», даже если в названии есть хатха или виньяса.</p>`);
+
+/* Fill */
+const WIN=(toMin("22:00")-toMin("07:30"))/60;
+const hrs=(h,k,f)=>data.filter(x=>x.h===h&&(!k||x.d===k)&&f(x)).reduce((a,x)=>a+toMin(x.e)-toMin(x.s),0)/60;
+const pct=v=>Math.round(v*100);
+const fmt=v=>v.toFixed(1).replace(".",",");
+const hallStat=h=>({h:hrs(h,null,x=>x.counted),r:hrs(h,null,x=>x.reserve),cap:WIN*7});
+const sm=hallStat("M"), sg=hallStat("G"), st={h:sm.h+sg.h,r:sm.r+sg.r,cap:sm.cap+sg.cap};
+const card=(lbl,s,main)=>`<div class="ft ${main?"main":""}"><div class="row"><span class="lbl">${lbl}</span><b class="num">${pct(s.h/s.cap)}%</b></div>
+  <div class="meter"><i class="pot" style="width:${(s.h+s.r)/s.cap*100}%"></i><i style="width:${s.h/s.cap*100}%"></i></div>
+  <div class="sub num">${fmt(s.h)} ч из ${fmt(s.cap)} ч в неделю · с резервами ${pct((s.h+s.r)/s.cap)}%</div></div>`;
+document.getElementById("filltot").innerHTML=card("Марс",sm)+card("Галактика",sg)+card("Студия в целом",st,true);
+const dayCell=(h,k)=>{const p=hrs(h,k,x=>x.counted)/WIN;return `<td class="cell" style="--o:${Math.min(.5,Math.max(.06,(p-.35)*1.4)).toFixed(2)}"><span>${pct(p)}%</span></td>`};
+const studioCell=k=>{const p=(hrs("M",k,x=>x.counted)+hrs("G",k,x=>x.counted))/(WIN*2);return `<td>${pct(p)}%</td>`};
+document.getElementById("filltbl").innerHTML=`<thead><tr><th></th>${DAYS.map(d=>`<th>${d[2]}</th>`).join("")}<th>Неделя</th></tr></thead><tbody>
+  <tr><td>Марс</td>${DAYS.map(d=>dayCell("M",d[0])).join("")}<td><b>${pct(sm.h/sm.cap)}%</b></td></tr>
+  <tr><td>Галактика</td>${DAYS.map(d=>dayCell("G",d[0])).join("")}<td><b>${pct(sg.h/sg.cap)}%</b></td></tr>
+  <tr class="tot"><td>Студия</td>${DAYS.map(d=>studioCell(d[0])).join("")}<td>${pct(st.h/st.cap)}%</td></tr></tbody>`;
+
+/* Findings & potential */
+const F=[
+  `В неделе <b>${total}</b> классов: ровно 12 в день, в среду 13. Суббота держит 12 только за счёт спецслота в 16:00.`,
+  `Все 4 регулярных резерва стоят днём в будни (12:00 и 14:00): пн и пт в Галактике, вт и чт в Марсе. Если их заполнить, будет <b>${total+resReg}</b> классов.`,
+  `Хатха занимает больше половины сетки (${data.filter(x=>x.dir==="hatha").length} из ${total}). Классов для начинающих 7, и в субботу нет ни одного.`,
+  `Галактика заполнена на ${pct(sg.h/sg.cap)}%, Марс на ${pct(sm.h/sm.cap)}%, студия в целом на ${pct(st.h/st.cap)}%. Слабее всего Марс по вт и чт (47%).`
+];
+document.getElementById("findings").innerHTML=F.map(x=>`<li>${x}</li>`).join("");
+const P=[
+  ["hi","Утро в Марсе пн, вт, чт","Зал пустует до 10:00–11:00, а в ср и пт там в 8:30 идёт «Бодрое утро». Если поставить его и в эти дни, утренняя сетка станет одинаковой всю неделю. В Галактике в это время майсор, классы не пересекаются по аудитории.","+3"],
+  ["hi","Новички в выходные","В субботу нет класса для начинающих, в воскресенье один (14:00). Спецслот сб 16:00 можно отдать под вводный класс или воркшоп для новичков.","слот сб"],
+  ["mid","Воскресное утро в Марсе","Зал свободен до 11:00. В субботу в 9:30 «Бодрое утро» уже есть, его можно повторить в воскресенье.","+1"],
+  ["mid","Дневные резервы и окно 15:30–17:30","4 резерва (пн/пт 12:00 Галактика, вт/чт 14:00 Марс) можно отдать под регулярные, корпоративные или индивидуальные классы. В Галактике с пн по пт окно 15:30/16:00–17:30 свободно каждый день. Его можно предложить под индивидуальные занятия, корпоративы или аренду.","+4"],
+  ["mid","Начинающие вечером","Вечерние классы для начинающих есть только в пн и ср (18:30). Во вт, чт и пт их нет, хотя это самое удобное время для новичков после работы. Здесь скорее замена одного «все уровни», чем новый класс.","замена"],
+  ["lo","Поздний вечер","Свободно: Галактика в пт после 20:45, Марс в сб после 20:30 и в вс после 21:00. Добавлять сюда стоит, только если соседние вечерние слоты заполнены.","до +3"],
+];
+document.getElementById("pot").innerHTML=P.map(([lvl,h,t,g])=>`<div class="p"><span class="pr ${lvl}">${lvl==="hi"?"высокий":lvl==="mid"?"средний":"низкий"}</span><div><h3>${h}</h3><p>${t}</p></div><span class="gain">${g}</span></div>`).join("");
+</script>
+
+</body></html>
