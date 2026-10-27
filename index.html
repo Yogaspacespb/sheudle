@@ -79,8 +79,8 @@ h2{font-size:18px}
 .cls:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .cls b{display:block;font-weight:700}
 .cls .t{opacity:.85}
-.cls.reserve{background:repeating-linear-gradient(135deg,#ECE5DD 0 6px,#F7F1EA 6px 12px)!important;color:#5C4A3A!important;border:2px solid var(--accent)}
-.cls.special{border-color:var(--green);border-style:dashed}
+.cls.reserve{background:#E0245E!important;color:#FFFFFF!important;font-weight:600;box-shadow:0 0 0 2px var(--surface),0 0 0 3.5px #E0245E}
+.cls.special{color:#FFFFFF}
 .detail{min-height:44px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--ink-2)}
 .detail b{color:var(--ink)}
 
@@ -117,8 +117,8 @@ table.fill td.cell{position:relative}
 table.fill td.cell span{position:relative;z-index:1}
 table.fill td.cell::before{content:"";position:absolute;inset:4px 3px;border-radius:5px;background:var(--green);opacity:var(--o)}
 table.fill tr.tot td{font-weight:700;border-bottom:0}
-.sw.res{background:repeating-linear-gradient(135deg,#ECE5DD 0 4px,#F7F1EA 4px 8px);border:2px solid var(--accent)}
-.sw.spec{background:#ECE5DD;border:2px dashed var(--green)}
+.sw.res{background:#E0245E}
+.sw.spec{background:#F0803B}
 
 /* Findings */
 .cols2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px}
@@ -184,27 +184,48 @@ const data=RAW.map(([d,h,s,e,name,teacher,color])=>{
     reserve:res&&!spec, special:spec, counted:!(res&&!spec)};
 });
 /* Направления: один цвет на направление (палитра только для этого дашборда) */
+/* Палитра классов — «Финальная таблица для 1С» (та же, что на портале) */
 const DIR=[
-  {k:"hatha", n:"Хатха",                 c:"#6E7F45", fg:"#FFFFFF"},
-  {k:"vin",   n:"Виньяса",               c:"#4F7FA6", fg:"#FFFFFF"},
-  {k:"ash",   n:"Аштанга",               c:"#E07A35", fg:"#FFFFFF"},
-  {k:"jiv",   n:"Дживамукти",            c:"#8E5A2B", fg:"#FFFFFF"},
-  {k:"yin",   n:"Инь-йога",              c:"#B7A6D8", fg:"#3F2F5E"},
-  {k:"sound", n:"Звук, чаши, нидра",     c:"#2F4A66", fg:"#FFFFFF"},
-  {k:"ther",  n:"Терапия, женское здоровье", c:"#E8BE86", fg:"#5A3D17"},
+  {k:"hn",  n:"Хатха — начинающий",          c:"#E6EDD4", fg:"#333333"},
+  {k:"hv",  n:"Хатха — все уровни",          c:"#C6D59B", fg:"#333333"},
+  {k:"hs",  n:"Хатха — средний",             c:"#809740", fg:"#FFFFFF"},
+  {k:"hp",  n:"Хатха — силовой",             c:"#6B7E35", fg:"#FFFFFF"},
+  {k:"am",  n:"Аштанга — майсор",            c:"#FEE0CD", fg:"#333333"},
+  {k:"av",  n:"Аштанга — все уровни",        c:"#FBB183", fg:"#333333"},
+  {k:"al",  n:"Аштанга — ЛЭД (продвинутый)", c:"#DF5906", fg:"#FFFFFF"},
+  {k:"vv",  n:"Виньяса Флоу — все уровни",   c:"#A8CDE6", fg:"#333333"},
+  {k:"vp",  n:"Виньяса Флоу — силовой",      c:"#5996C0", fg:"#FFFFFF"},
+  {k:"jw",  n:"Дживамукти — Духовный воин",  c:"#EFDBC2", fg:"#333333"},
+  {k:"jo",  n:"Дживамукти — Открытый класс", c:"#AA702C", fg:"#FFFFFF"},
+  {k:"yin", n:"Инь йога",                    c:"#D7E8F4", fg:"#333333"},
+  {k:"snd", n:"Звукотерапия / поющие чаши",  c:"#3F7CA6", fg:"#FFFFFF"},
+  {k:"soft",n:"Мягкие практики",             c:"#DDB17E", fg:"#333333"},
 ];
+const SPEC={c:"#F0803B", fg:"#FFFFFF"};   /* Мастер-класс / спецкласс */
 const DIRMAP=Object.fromEntries(DIR.map(x=>[x.k,x]));
 function dirOf(name){
   const s=name.toLowerCase();
+  if(/аштанга/.test(s)) return /майсор/.test(s)?"am":/лэд/.test(s)?"al":"av";
+  if(/звук|чаш/.test(s)) return "snd";
+  if(/виньяса/.test(s)) return /силов/.test(s)?"vp":"vv";
+  if(/дживамукти/.test(s)) return /открыт/.test(s)?"jo":"jw";
+  if(/инь/.test(s)) return "yin";
+  if(/женского|терап|спина|растяжк/.test(s)) return "soft";
+  if(/начинающ/.test(s)) return "hn";
+  if(/силов/.test(s)) return "hp";
+  if(/средн/.test(s)) return "hs";
+  return "hv";
+}
+/* старая группировка по направлениям — только для текста выводов */
+function groupOf(name){
+  const s=name.toLowerCase();
   if(/чаш|звук|нидра/.test(s)) return "sound";
   if(/женск|терапи/.test(s)) return "ther";
-  if(/аштанга/.test(s)) return "ash";
-  if(/дживамукти/.test(s)) return "jiv";
-  if(/виньяса/.test(s)) return "vin";
-  if(/инь/.test(s)) return "yin";
+  if(/аштанга|дживамукти|виньяса|инь/.test(s)) return "other";
   return "hatha";
 }
-data.forEach(x=>{ if(!x.reserve&&!x.special){ x.dir=dirOf(x.name); x.color=DIRMAP[x.dir].c; x.fg=DIRMAP[x.dir].fg; } });
+data.forEach(x=>{ if(!x.reserve&&!x.special){ x.dir=dirOf(x.name); x.group=groupOf(x.name); x.color=DIRMAP[x.dir].c; x.fg=DIRMAP[x.dir].fg; }
+  if(x.special){ x.color=SPEC.c; x.fg=SPEC.fg; } });
 
 /* KPIs */
 const total=data.filter(x=>x.counted).length;
@@ -239,7 +260,7 @@ DAYS.forEach(([k])=>["M","G"].forEach(h=>{
     const fg=x.fg||"#5C4A3A";
     const short=x.name.replace(/^Хатха йога\.\s*/,"Хатха · ").replace(/\.\s*Все уровни$/,"").replace(/Все уровни/,"");
     const idx=data.indexOf(x);
-    html+=`<button class="cls ${x.reserve?"reserve":""} ${x.special?"reserve special":""}" data-i="${idx}" style="top:${top}px;height:${ht}px;background:${x.color};color:${fg}" title="${x.s}–${x.e} ${x.name} ${x.teacher}">
+    html+=`<button class="cls ${x.reserve?"reserve":""} ${x.special?"special":""}" data-i="${idx}" style="top:${top}px;height:${ht}px;background:${x.color};color:${fg}" title="${x.s}–${x.e} ${x.name} ${x.teacher}">
       <span class="t num">${x.s}–${x.e}</span><b>${short}</b>${x.teacher?`<span>${x.teacher}</span>`:""}</button>`;
   });
   html+=`</div>`;
@@ -250,10 +271,10 @@ tt.addEventListener("click",e=>{const b=e.target.closest(".cls");if(!b)return;co
   document.getElementById("detail").innerHTML=`<b>${day}, ${x.s}–${x.e} · ${HALLS[x.h]}</b> · ${x.name}${x.teacher?` · ${x.teacher}`:""}${x.reserve?" · <b>не входит в итог дня</b>":""}${x.special?" · <b>входит в итог дня</b>":""}`;});
 
 /* Legend */
-document.getElementById("legend").innerHTML=DIR.map(x=>`<span class="lg"><i class="sw" style="background:${x.c}"></i>${x.n} <em>${data.filter(y=>y.dir===x.k).length}</em></span>`).join("")
+document.getElementById("legend").innerHTML=DIR.filter(x=>data.some(y=>y.dir===x.k)).map(x=>`<span class="lg"><i class="sw" style="background:${x.c}"></i>${x.n} <em>${data.filter(y=>y.dir===x.k).length}</em></span>`).join("")
   +`<span class="lg"><i class="sw res"></i>Резерв под рег. класс <em>${resReg}, не в счёте</em></span>`
-  +`<span class="lg"><i class="sw spec"></i>Спецкласс сб <em>1, в счёте</em></span>`;
-document.getElementById("legend").insertAdjacentHTML("afterend",`<p class="lg-note">Классы с поющими чашами, звукотерапией и нидрой собраны в одну группу «Звук», даже если в названии есть хатха или виньяса.</p>`);
+  +`<span class="lg"><i class="sw spec"></i>Мастер-класс / спецкласс сб <em>1, в счёте</em></span>`;
+document.getElementById("legend").insertAdjacentHTML("afterend",`<p class="lg-note">Цвета — палитра классов «для 1С». Классы с поющими чашами и звукотерапией — цвет «Звукотерапия», даже если в названии есть хатха или виньяса; здоровая спина, растяжка, женское здоровье и йогатерапия — «Мягкие практики».</p>`);
 
 /* Fill */
 const WIN=(toMin("22:00")-toMin("07:30"))/60;
@@ -277,7 +298,7 @@ document.getElementById("filltbl").innerHTML=`<thead><tr><th></th>${DAYS.map(d=>
 const F=[
   `Классов в неделе: <b>${total}</b>. По дням 12, в среду 13, в среду 13, в воскресенье 11 (вместо «Хатха. Средний» в 17:30 в Галактике теперь резерв). Суббота держит 12 только за счёт спецслота в 16:00.`,
   `Регулярных резервов ${resReg}: четыре днём в будни (12:00 и 14:00: пн и пт в Галактике, вт и чт в Марсе) и один в вс 17:30 в Галактике. Если их заполнить, будет <b>${total+resReg}</b> классов.`,
-  `Хатха занимает больше половины сетки (${data.filter(x=>x.dir==="hatha").length} из ${total}). Классов для начинающих 7, и в субботу нет ни одного.`,
+  `Хатха занимает больше половины сетки (${data.filter(x=>x.group==="hatha").length} из ${total}). Классов для начинающих 7, и в субботу нет ни одного.`,
   `Галактика заполнена на ${pct(sg.h/sg.cap)}%, Марс на ${pct(sm.h/sm.cap)}%, студия в целом на ${pct(st.h/st.cap)}%. Слабее всего Марс по вт и чт (47%).`
 ];
 document.getElementById("findings").innerHTML=F.map(x=>`<li>${x}</li>`).join("");
